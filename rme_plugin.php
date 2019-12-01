@@ -19,10 +19,11 @@
  *
  */
 
-defined( 'ABSPATH' ) or exit;
+defined('ABSPATH') or exit;
 
+include "includes/checkout.php";
+include "includes/order_complete.php";
 include "includes/radio.php";
-
 
 /**
  * Test functions
@@ -32,25 +33,23 @@ include "includes/radio.php";
 function test_js_shortcode() {
    wp_enqueue_script("testrun", plugin_dir_url(__FILE__)."js/testrun.js");
 }
-add_shortcode( 'test_js', 'test_js_shortcode' );
+add_shortcode('test_js', 'test_js_shortcode');
 
 // Edit my account menu order
 function my_account_menu_order() {
    $menuOrder = array(
-      'orders'             => __( 'Orders', 'woocommerce' ),
-      'downloads'          => __( 'Download', 'woocommerce' ),
-      'edit-address'       => __( 'Addresses', 'woocommerce' ),
-      'edit-account'    	=> __( 'Account Details', 'woocommerce' ),
-      'customer-logout'    => __( 'Logout', 'woocommerce' ),
-      'dashboard'          => __( 'Dashboard', 'woocommerce' ),
+      'orders'             => __('Orders', 'woocommerce'),
+      'downloads'          => __('Download', 'woocommerce'),
+      'edit-address'       => __('Addresses', 'woocommerce'),
+      'edit-account'    	=> __('Account Details', 'woocommerce'),
+      'customer-logout'    => __('Logout', 'woocommerce'),
+      'dashboard'          => __('Dashboard', 'woocommerce'),
    );
    return $menuOrder;
 }
 
 // Edit my account menu order - add shortcode
 function test_menu_order_shortcode() {
-   add_filter ( 'woocommerce_account_menu_items', 'my_account_menu_order' );
+   add_filter ('woocommerce_account_menu_items', 'my_account_menu_order');
 }
-add_shortcode( 'test_menu_order', 'test_menu_order_shortcode' );
-
-
+add_shortcode('test_menu_order', 'test_menu_order_shortcode');

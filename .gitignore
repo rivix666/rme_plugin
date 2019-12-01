@@ -1,5 +1,6 @@
 *.log
 wp-config.php
+wp-config.php.bak
 wp-content/advanced-cache.php
 wp-content/backup-db/
 wp-content/backups/
@@ -17,3 +18,4 @@ wp-content/plugins/hello.php
 /sitemap.xml
 /sitemap.xml.gz
 
+tmp
