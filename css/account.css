@@ -1,0 +1,17 @@
+
+/* Icon for My Account - Subscriptions*/
+.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--subscriptions a:before 
+{
+    content: '\f015';
+}
+
+/* My Account - Subscriptions page */
+.exp_date-expired
+{
+    color: #CC0000
+}
+
+.exp_date-warning
+{
+    color: #FF8800
+}

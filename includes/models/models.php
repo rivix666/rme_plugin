@@ -11,6 +11,7 @@ class Subs extends BaseModel
 	public $url;
 	public $exp_date;
 	public $licenses_num;
+	// public licence id dopisac
 
 	public static function get_primary_key()
 	{
@@ -24,7 +25,7 @@ class Subs extends BaseModel
 
 	public static function get_searchable_fields()
 	{
-		return ['url', 'exp_date', 'licenses_num'];
+		return ['url', 'user_id', 'exp_date', 'licenses_num'];
 	}
 }
 

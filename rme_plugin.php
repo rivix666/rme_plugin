@@ -21,9 +21,10 @@
 
 defined('ABSPATH') or exit;
 
-include "includes/checkout.php";
-include "includes/order_complete.php";
-include "includes/radio.php";
+include_once "includes/ice_auth/checkout.php";
+include_once "includes/ice_auth/order_complete.php";
+include_once "includes/ice_auth/account.php";
+include_once "includes/radio.php";
 
 /**
  * Test functions
@@ -35,21 +36,4 @@ function test_js_shortcode() {
 }
 add_shortcode('test_js', 'test_js_shortcode');
 
-// Edit my account menu order
-function my_account_menu_order() {
-   $menuOrder = array(
-      'orders'             => __('Orders', 'woocommerce'),
-      'downloads'          => __('Download', 'woocommerce'),
-      'edit-address'       => __('Addresses', 'woocommerce'),
-      'edit-account'    	=> __('Account Details', 'woocommerce'),
-      'customer-logout'    => __('Logout', 'woocommerce'),
-      'dashboard'          => __('Dashboard', 'woocommerce'),
-   );
-   return $menuOrder;
-}
 
-// Edit my account menu order - add shortcode
-function test_menu_order_shortcode() {
-   add_filter ('woocommerce_account_menu_items', 'my_account_menu_order');
-}
-add_shortcode('test_menu_order', 'test_menu_order_shortcode');
