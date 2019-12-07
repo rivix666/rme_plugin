@@ -1,9 +1,14 @@
 <?php
 
+// Defines
 define("ICECAST_URL", "https://jmpiano.pl:8080/rme_test?uuid=");
+define("SUBS_ENDPOINT", "subscriptions"); // After change remember to update account.css and hooks names
 
+// Date timezone
 date_default_timezone_set('Europe/Warsaw');
 
+// Debug logs
+//---------------------------------------------------------------------------------------------------
 if (!function_exists('write_log')) {
     function write_log($log)
     {
@@ -14,3 +19,23 @@ if (!function_exists('write_log')) {
         }
     }
 }
+
+//---------------------------------------------------------------------------------------------------
+function isDateExpired($date)
+{
+    $today = date("Y-m-d");
+    return $today > $date;
+}
+
+// It's awesome but some pages may block it...
+// $data - data that should be in downloaded file
+// $data_type - eg. 'audio/mpegurl' or 'text/plain', 'text/html'
+// More info - https://en.wikipedia.org/wiki/Data_URI_scheme#Web_browser_support
+//---------------------------------------------------------------------------------------------------
+if (!function_exists('createDownloadLink')) {
+    function createDownloadLink($data, $data_type, $link_text)
+    {
+        return "<a href='data:$data_type;charset=UTF-8,$data'>$link_text</a>";
+    }
+}
+

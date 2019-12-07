@@ -1,37 +1,11 @@
 <?php
 
-include_once __DIR__."/../utils/global.php";
-include_once __DIR__."/../models/models.php";
+include_once __DIR__ . "/../utils/global.php";
+include_once __DIR__ . "/../models/models.php";
 
 use models\Subs;
 use models\SubsOrderData;
 
-add_action('woocommerce_order_status_completed', 'test_order_status_completed');
-add_action('woocommerce_payment_complete', 'test_payment_complete');
-
-// TEST - ORDER COMPLETE, WYWALIC POTEM!!!!
-add_shortcode('test_order_complete', 'test_order_status_completed');
-
-//---------------------------------------------------------------------------------------------------
-function test_order_status_completed($order_id)
-{
-    $order_id = 651; // Just for tests
-    $ice_mgr = new IceAuthOrderMgr($order_id);
-    $ice_mgr->orderComplete();
-}
-
-//---------------------------------------------------------------------------------------------------
-function test_payment_complete($order_id)
-{
-    write_log('test_payment_complete');
-    $order = wc_get_order($order_id);
-    $user = $order->get_user();
-    if ($user) {
-        write_log("Payment complete for order $order_id, $order, $user->user_login");
-    }
-}
-
-//---------------------------------------------------------------------------------------------------
 class IceAuthOrderMgr
 {
     public $order;
@@ -66,9 +40,6 @@ class IceAuthOrderMgr
     //---------------------------------------------------------------------------------------------------
     public function orderComplete()
     {
-        // Creates db tables if they are missing
-        $this->createMissingTables();
-
         // Go through all bought items and create entry for every one
         foreach ($this->order->get_items() as $it) {
             $product = $this->getProductFromItem($it);
@@ -77,7 +48,7 @@ class IceAuthOrderMgr
             $sub = new Subs();
             $sub->user_id = $this->user->ID;
             $sub->url = $this->createUniqUrl($this->user);
-            $sub->exp_date = $this->createExpDate($product);
+            $sub->exp_date = $this->createExpDate($this->order, $product);
             $sub->licenses_num = 1; //$order->get_meta('_billing_licences_num'); // TODO for now we will have on licence per order
             $sub->save();
 
@@ -90,13 +61,44 @@ class IceAuthOrderMgr
 
             // Send data to ice_auth
             $this->registerSubscriptionInIceAuth($sub);
+        }
+    }
 
-            // TESTS: just for tests unregister new listener
-            $this->unregisterSubscriptionFromIceAuth($sub);
+    //---------------------------------------------------------------------------------------------------
+    public function orderRefunded()
+    {
+        $order_id = $this->order->get_id();
+        $sub_data = SubsOrderData::query()
+            ->where('order_id', $order_id)
+            ->find();
+
+        if (sizeof($sub_data) < 1) {
+            throw new ErrorException(sprintf("[%s::%s] There is no SubData for given order: $order_id", __CLASS__, __FUNCTION__));
         }
 
-        write_log($this->order->get_data());
-        print_r($this->order->get_meta('_billing_nip'));
+        foreach ($sub_data as $data) {
+            $data_id = $data->id;
+            $subs = Subs::query()
+                ->where('id', $data->sub_id)
+                ->find();
+
+            if (sizeof($subs) < 1) {
+                throw new ErrorException(sprintf("[%s::%s] There is no Sub for given order: $order_id", __CLASS__, __FUNCTION__));
+            }
+
+            if (!$data->delete()) {
+                throw new ErrorException(sprintf("[%s::%s] Cannot remove SubData: $data_id", __CLASS__, __FUNCTION__));
+            }
+
+            foreach ($subs as $sub) {
+                $sub_id = $sub->id;
+                $this->unregisterSubscriptionFromIceAuth($sub);
+
+                if (!$sub->delete()) {
+                    throw new ErrorException(sprintf("[%s::%s] Cannot remove Sub: $sub_id", __CLASS__, __FUNCTION__));
+                }
+            }
+        }
     }
 
     //---------------------------------------------------------------------------------------------------
@@ -112,12 +114,11 @@ class IceAuthOrderMgr
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_HEADER, 1);  
+        curl_setopt($ch, CURLOPT_HEADER, 1);
         $response = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        
-        if ($httpcode != 200)
-        {
+
+        if ($httpcode != 200) {
             throw new Exception(sprintf("[%s::%s] Cannot register listener in ice_auth. Response code: $httpcode", __CLASS__, __FUNCTION__));
         }
     }
@@ -137,17 +138,10 @@ class IceAuthOrderMgr
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        
-        if ($httpcode != 200)
-        {
+
+        if ($httpcode != 200) {
             throw new Exception(sprintf("[%s::%s] Cannot unregister listener in ice_auth. Response code: $httpcode", __CLASS__, __FUNCTION__));
         }
-    }
-
-    //---------------------------------------------------------------------------------------------------
-    protected function createMissingTables()
-    {
-        // TODO
     }
 
     //---------------------------------------------------------------------------------------------------
@@ -170,12 +164,11 @@ class IceAuthOrderMgr
     }
 
     //---------------------------------------------------------------------------------------------------
-    protected function createExpDate($product)
+    protected function createExpDate($order, $product)
     {
-        // TODO na razie zahardkodujemy rozpoznawanie produktu by sku, potem jak to zadziała to pomyslimy jak to zrobic madrzej
         switch ($product->get_sku()) {
             case "6_miechow_radio":
-                return date('Y-m-d', strtotime("+6 months"));
+                return date('Y-m-d', strtotime("+6 months")); // TODO should be +6 months from order date not today
         }
         return null;
     }

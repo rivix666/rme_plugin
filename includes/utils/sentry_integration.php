@@ -1,5 +1,13 @@
 <?php
 
+function sentryClient()
+{
+    if (class_exists('WP_Sentry_Php_Tracker')) {
+        return WP_Sentry_Php_Tracker::get_instance()->get_client(); 
+    }
+    return null;
+}
+
 // function filter_sentry_send_data(array $data)
 // {
 //     $data['tags']['my_custom_key'] = 'my_custom_value';
@@ -30,11 +38,5 @@
 
 //     throw new Exception("My first Sentry error!");
 // } catch (Exception $exc) {
-//     if (class_exists('WP_Sentry_Php_Tracker')) {
-//         $sentryClient = WP_Sentry_Php_Tracker::get_instance()->get_client();
 
-//         $sentryClient->captureException($exc);
-//     }
 // }
-
-?>

@@ -7,11 +7,10 @@ use WordPress\ORM\BaseModel;
 class Subs extends BaseModel
 {
 	public $id;
-	public $user_id; // zamienić potem na protected i dorobic gettery i settery
+	public $user_id; // TODO change all to protected
 	public $url;
 	public $exp_date;
 	public $licenses_num;
-	// public licence id dopisac
 
 	public static function get_primary_key()
 	{
@@ -31,7 +30,7 @@ class Subs extends BaseModel
 
 class SubsOrderData extends BaseModel
 {
-	public $id; // zamienić potem na protected i dorobic gettery i settery
+	public $id;
 	public $sub_id; // Connected by foreign key with Subs->id
 	public $order_id;
 	public $product_id;

@@ -19,21 +19,24 @@
  *
  */
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
+// TODO include these files only when we need them (like in download_m3u.php, but prettier)
 include_once "includes/ice_auth/checkout.php";
-include_once "includes/ice_auth/order_complete.php";
-include_once "includes/ice_auth/account.php";
+include_once "includes/order.php";
+include_once "includes/order_details.php";
+include_once "includes/account.php";
 include_once "includes/radio.php";
+include_once "includes/utils/db_utils.php";
 
-/**
- * Test functions
- */
-
-// Tests, append js script
-function test_js_shortcode() {
-   wp_enqueue_script("testrun", plugin_dir_url(__FILE__)."js/testrun.js");
+// Create db tables if needed, during plugin activation
+register_activation_hook(__FILE__, 'rme_plugin_activated');
+function rme_plugin_activated()
+{
+    createRmeDbTablesIfNeeded();
 }
-add_shortcode('test_js', 'test_js_shortcode');
 
-
+// TODO IMPORTANT in subs page shows only subs that orders have status completed
+// TODO add bool active into rme_subs table and deactivate it when order status change to any other than completed
+// TODO currently after refund order data from rme_sub is deleted. We should just deactivate it, and delete only when order is deleted.
+// TODO exp_date should be calculated from order date not today
