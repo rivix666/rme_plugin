@@ -18,8 +18,8 @@ class SubsPageFactory
         // If user doesn't have any, show him message
         if (!$subs || sizeof($subs) == 0)
         {
-            // TODO use the same font that is used in myAccount
-            echo "Niestety nie masz jeszcze wykupionej żadnej licencji :(.</br>Zapoznaj sie z naszą ofertą w celu dokonania zakupu.";
+            $home_link = "<a href='".home_url()."'>ofertą</a>";
+            echo "<p>Niestety nie masz jeszcze wykupionej żadnej licencji :(</p><p>Zapoznaj sie z naszą $home_link w celu dokonania zakupu</p>";
             return;
         }
  

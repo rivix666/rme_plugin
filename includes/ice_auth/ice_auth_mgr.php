@@ -167,9 +167,16 @@ class IceAuthOrderMgr
     protected function createExpDate($order, $product)
     {
         $sku = $product->get_sku();
+        $pay_date = $order->get_date_paid()->date('Y-m-d');
         switch ($sku) {
-            case "6_miechow_radio":
-                return date('Y-m-d', strtotime("+6 months")); // TODO should be +6 months from order date not today
+            case "6-months":
+                return date('Y-m-d', strtotime("$pay_date + 6 months"));
+            case "12-months":
+                return date('Y-m-d', strtotime("$pay_date + 12 months"));
+            case "24-months":
+                return date('Y-m-d', strtotime("$pay_date + 24 months"));
+            case "1-day-test":
+                return date('Y-m-d', strtotime("$pay_date + 1 day"));
         }
         throw new ErrorException(sprintf("[%s::%s] Can not create exp date for product with given sku : $sku", __CLASS__, __FUNCTION__));
     }

@@ -30,11 +30,27 @@ include_once "includes/radio.php";
 include_once "includes/utils/db_utils.php";
 
 // Create db tables if needed, during plugin activation
-register_activation_hook(__FILE__, 'rme_plugin_activated');
+//---------------------------------------------------------------------------------------------------
 function rme_plugin_activated()
 {
     createRmeDbTablesIfNeeded();
 }
+
+register_activation_hook(__FILE__, 'rme_plugin_activated');
+
+// Shows 404 on shop page
+//---------------------------------------------------------------------------------------------------
+function redirect_shop() // TODO name and clean
+{
+    if (is_shop() || is_cart() || is_product()) {
+        remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0);
+        wp_redirect(home_url());
+        exit;
+    }
+}
+
+add_action('template_redirect', 'redirect_shop');
+
 
 // TODO IMPORTANT in subs page shows only subs that orders have status completed
 // TODO add bool active into rme_subs table and deactivate it when order status change to any other than completed

@@ -11,7 +11,7 @@ function myAccountMenuOrder()
 {
 
     $menuOrder = array(
-        SUBS_ENDPOINT => __('Subskrypcje', 'woocommerce'),
+        SUBS_ENDPOINT => __(' Subskrypcje', 'woocommerce'),
         'orders' => __('Orders', 'woocommerce'),
         'edit-address' => __('Addresses', 'woocommerce'),
         'edit-account' => __('Szczegóły Konta', 'woocommerce'),
