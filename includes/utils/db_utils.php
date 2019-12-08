@@ -1,5 +1,11 @@
 <?php
 
+function dbPrefix()
+{
+    global $wpdb;
+    return $wpdb->prefix;
+}
+
 function createRmeDbTablesIfNeeded()
 {
     require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -22,12 +28,12 @@ function createRmeDbTablesIfNeeded()
     // Create table rme_subs_products if needed
     $table_name = $wpdb->prefix.'rme_subs_products';
     $sql = "CREATE TABLE $table_name (
-        id MEDIUMINT NOT NULL AUTO_INCREMENT,
-        sub_id MEDIUMINT NOT NULL,
+        id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+        sub_id MEDIUMINT UNSIGNED NOT NULL,
         order_id MEDIUMINT NOT NULL,
         product_id MEDIUMINT NOT NULL,
         PRIMARY KEY (id),
-        FOREIGN KEY (sub_id) REFERENCES rme_subs(id)
+        FOREIGN KEY (sub_id) REFERENCES ".$wpdb->prefix."rme_subs(id)
         ) $charset_collate;";
     
     maybe_create_table($table_name, $sql);

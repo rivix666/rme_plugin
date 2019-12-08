@@ -4,6 +4,8 @@ namespace models;
 
 use WordPress\ORM\BaseModel;
 
+include_once __DIR__ . "/../utils/db_utils.php";
+
 class Subs extends BaseModel
 {
 	public $id;
@@ -19,7 +21,7 @@ class Subs extends BaseModel
 
 	public static function get_table()
 	{
-		return 'rme_subs';
+		return dbPrefix().'rme_subs';
 	}
 
 	public static function get_searchable_fields()
@@ -42,7 +44,7 @@ class SubsOrderData extends BaseModel
 
 	public static function get_table()
 	{
-		return 'rme_subs_products';
+		return dbPrefix().'rme_subs_products';
 	}
 
 	public static function get_searchable_fields()

@@ -5,7 +5,7 @@
  * Description: Custom plugin for Radio Max Elektro Website
  * Author: Radio Max Elektro
  * Author URI: localhost/wordpress
- * Version: 1.0
+ * Version: 0.8
  * Text Domain: rme_plugin
  *
  * Copyright: (c) 2019 Radio Max Elektro

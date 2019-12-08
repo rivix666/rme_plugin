@@ -14,7 +14,10 @@ function orderShopDetails($order)
             echo "<br>$addr2";
         }
 
+        $postcode = $order->get_meta('shop_postcode');
         echo "<br>$postcode";
+
+        $city = $postcode = $order->get_meta('shop_city');
         echo "<br>$city";
 
         // Not required
