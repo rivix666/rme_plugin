@@ -1,5 +1,7 @@
 <?php
 
+include_once "error_handler.php";
+
 // Defines
 define("ICECAST_URL", "https://jmpiano.pl:8080/rme_test?uuid=");
 define("SUBS_ENDPOINT", "subscriptions"); // After change remember to update account.css and hooks names
@@ -38,4 +40,3 @@ if (!function_exists('createDownloadLink')) {
         return "<a href='data:$data_type;charset=UTF-8,$data'>$link_text</a>";
     }
 }
-
