@@ -4,7 +4,7 @@ Amplitude.init({
       "name": "Offcut #6",
       "artist": "Little People",
       "album": "We Are But Hunks of Wood Remixes",
-      "url": "https://jmpiano.pl:8080/rme_test?uuid=2323-676", //http://panel.nadaje.com:8078/3e1f8
+      "url": "https://stream.radiomaxelektro.pl:8080/rme_stream?uuid=2323-676", //http://panel.nadaje.com:8078/3e1f8
       "cover_art_url": "../album-art/we-are-but-hunks-of-wood.jpg"
     }
   ]

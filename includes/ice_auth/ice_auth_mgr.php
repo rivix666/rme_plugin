@@ -11,8 +11,8 @@ class IceAuthOrderMgr
     public $order;
     public $user;
 
-    private const SUB_REGISTER_URL = 'http://jmpiano.pl:7000/icecast/listener/manage/register';
-    private const SUB_UNREGISTER_URL = 'http://jmpiano.pl:7000/icecast/listener/manage/unregister';
+    private const SUB_REGISTER_URL = 'https://stream.radiomaxelektro.pl:7080/icecast/listener/manage/register';
+    private const SUB_UNREGISTER_URL = 'https://stream.radiomaxelektro.pl:7080/icecast/listener/manage/unregister';
 
     //---------------------------------------------------------------------------------------------------
     public function __construct($order_id)

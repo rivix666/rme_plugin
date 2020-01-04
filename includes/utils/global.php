@@ -3,7 +3,7 @@
 include_once "error_handler.php";
 
 // Defines
-define("ICECAST_URL", "https://jmpiano.pl:8080/rme_test?uuid=");
+define("ICECAST_URL", "https://stream.radiomaxelektro.pl:8080/rme_stream?uuid=");
 define("SUBS_ENDPOINT", "subscriptions"); // After change remember to update account.css and hooks names
 
 // Date timezone
