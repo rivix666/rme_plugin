@@ -112,11 +112,11 @@ function shopAddressCheckoutFieldProcess()
 {
     // if the field is set, if not then show an error message.
     if (!$_POST['shop_address1']) {
-        wc_add_notice(__('Proszę uzupełnić adres sklepu pod który wykupowana jest licencja.'), 'error');
+        wc_add_notice(__('Proszę uzupełnić adres sklepu pod który wykupywana jest licencja.'), 'error');
     } else if (!$_POST['shop_postcode']) {
-        wc_add_notice(__('Proszę uzupełnić adres sklepu pod który wykupowana jest licencja.'), 'error');
+        wc_add_notice(__('Proszę uzupełnić adres sklepu pod który wykupywana jest licencja.'), 'error');
     } else if (!$_POST['shop_city']) {
-        wc_add_notice(__('Proszę uzupełnić adres sklepu pod który wykupowana jest licencja.'), 'error');
+        wc_add_notice(__('Proszę uzupełnić adres sklepu pod który wykupywana jest licencja.'), 'error');
     }
 }
 

@@ -7,7 +7,8 @@ define("ICECAST_URL", "https://stream.radiomaxelektro.pl:8080/rme_stream?uuid=")
 define("SUBS_ENDPOINT", "subscriptions"); // After change remember to update account.css and hooks names
 
 // Date timezone
-date_default_timezone_set('Europe/Warsaw');
+// TODO check if we really don;t need to set this
+//date_default_timezone_set('Europe/Warsaw');
 
 // Debug logs
 //---------------------------------------------------------------------------------------------------
