@@ -1,6 +1,9 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
 <?php do_action( 'wpo_wcpdf_before_document', $this->type, $this->order ); ?>
 
+<!-- RME includes -->
+<?php include_once "rme_funcs.php"; ?>
+
 <table class="head container">
 	<tr>
 		<td class="header">
@@ -30,7 +33,7 @@
 		<td class="address billing-address">
 			<!-- <h3><?php _e( 'Billing Address:', 'woocommerce-pdf-invoices-packing-slips' ); ?></h3> -->
 			<?php do_action( 'wpo_wcpdf_before_billing_address', $this->type, $this->order ); ?>
-			<?php $this->billing_address(); ?>
+			<?php infoClientAddress($this->order); ?>
 			<?php do_action( 'wpo_wcpdf_after_billing_address', $this->type, $this->order ); ?>
 			<?php if ( isset($this->settings['display_email']) ) { ?>
 			<div class="billing-email"><?php $this->billing_email(); ?></div>
@@ -147,10 +150,6 @@
 </div><!-- #letter-footer -->
 <?php endif; ?>
 <?php do_action( 'wpo_wcpdf_after_document', $this->type, $this->order ); ?>
-
-
-<!-- RME includes -->
-<?php include_once "rme_funcs.php"; ?>
 
 <!-- Agreement -->
 <div style="page-break-before: always;"></div>

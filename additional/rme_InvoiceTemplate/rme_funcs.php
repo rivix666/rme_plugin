@@ -11,6 +11,61 @@ function throwExcp($order_id, $context, $msg)
 }
 
 //---------------------------------------------------------------------------------------------------
+function miscClientCompany($order)
+{
+    if ($cmp = $order->get_billing_company()) {
+        return $cmp;
+    } else {
+        throwExcp($order->get_id(), "INVOICE AGREEMENT", "There is no company name");
+    }
+    return "";
+}
+
+//---------------------------------------------------------------------------------------------------
+function miscClientAddress($order)
+{
+    $addr = "";
+    if ($addr1 = $order->get_billing_address_1()) {
+        $addr .= "$addr1";
+        if ($addr2 = $order->get_billing_address_2())
+            $addr .= " $addr2";
+    }
+    else {
+        throwExcp($order->get_id(), "INVOICE AGREEMENT", "There is no address");
+    }
+    return $addr;
+}
+
+//---------------------------------------------------------------------------------------------------
+function miscClientNIP($order)
+{
+    if ($nip = $order->get_meta('_billing_nip')) {
+        return $nip;
+    } else {
+        throwExcp($order->get_id(), "INVOICE AGREEMENT", "There is no NIP");
+    }
+    return "";
+}
+
+//---------------------------------------------------------------------------------------------------
+function infoClientAddress($order)
+{
+    $cmp = miscClientCompany($order);
+    $nip = "NIP " . miscClientNIP($order);
+    $addr = miscClientAddress($order);
+    $city = $order->get_billing_city();
+    $post_code = $order->get_billing_postcode();
+    $fn = $order->get_billing_first_name();
+    $ln = $order->get_billing_last_name();
+
+    echo "<br><b>$cmp</b>";
+    echo "<br>$nip";
+    echo "<br>$fn $ln";
+    echo "<br>$addr";
+    echo "<br>$post_code, $city";
+}
+
+//---------------------------------------------------------------------------------------------------
 function introStartDate($order)
 {
     $date = $order->get_date_completed();
@@ -53,30 +108,11 @@ function introCity($order)
 //---------------------------------------------------------------------------------------------------
 function introClientData($order)
 {
-    if ($cmp = $order->get_billing_company()) {
-        echo "$cmp";
-    } else {
-        throwExcp($order->get_id(), "INVOICE AGREEMENT", "There is no company name");
-    }
-
-    if ($addr1 = $order->get_billing_address_1()) {
-        echo ", $addr1";
-        if ($addr2 = $order->get_billing_address_2())
-            echo " $addr2";
-    }
-    else {
-        throwExcp($order->get_id(), "INVOICE AGREEMENT", "There is no address");
-    }
-
-    $city = $order->get_billing_city();
-    $post_code = $order->get_billing_postcode();
-    echo ", $city $post_code";
-
-    if ($nip = $order->get_meta('_billing_nip')) {
-        echo ", NIP $nip";
-    } else {
-        throwExcp($order->get_id(), "INVOICE AGREEMENT", "There is no NIP");
-    }
+    echo miscClientCompany($order);
+    echo ", " . miscClientAddress($order);
+    echo ", " . $order->get_billing_city();
+    echo " " . $order->get_billing_postcode();
+    echo ", NIP " . miscClientNIP($order);
 
     $fn = $order->get_billing_first_name();
     $ln = $order->get_billing_last_name();
