@@ -50,9 +50,3 @@ function redirect_shop() // TODO name and clean
 }
 
 add_action('template_redirect', 'redirect_shop');
-
-
-// TODO IMPORTANT in subs page shows only subs that orders have status completed
-// TODO add bool active into rme_subs table and deactivate it when order status change to any other than completed
-// TODO currently after refund order data from rme_sub is deleted. We should just deactivate it, and delete only when order is deleted.
-// TODO dodać try catche w krytycznych miejscach któe ew jak coś pójdzie nie tak z dodawaniem usera to wyczyszczą źle dodane dane w bazie itp itd

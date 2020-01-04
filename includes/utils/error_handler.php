@@ -15,7 +15,9 @@ function exceptionHandler($exception)
     $sentry = sentryClient();
     $sentry->captureException($exception);
 
-    //wp_redirect(home_url()); # TODO redirect do strony z info że coś poszło nie tak i zeby się z kontaktować z obługą klienta
+    $error_id = uniqid("", false);
+    $message_to_user = "Wystąpił błąd! Skontaktuj się proszę z naszym działem obsługi 'kontakt@radiomaxelektro.pl'. W wiadomości załącz niniejszy numer błędu: $error_id";  
+    echo "<script>alert(\"$message_to_user\")</script>";
 }
 
 set_exception_handler('exceptionHandler');
