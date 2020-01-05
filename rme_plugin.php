@@ -27,6 +27,7 @@ include_once "includes/order.php";
 include_once "includes/order_details.php";
 include_once "includes/account.php";
 include_once "includes/radio.php";
+include_once "includes/ganalytics.php";
 include_once "includes/utils/db_utils.php";
 
 // Create db tables if needed, during plugin activation
@@ -50,3 +51,7 @@ function redirect_shop() // TODO name and clean
 }
 
 add_action('template_redirect', 'redirect_shop');
+
+// Disable email suggestion on Email form field (WPForms)
+//---------------------------------------------------------------------------------------------------
+add_filter('wpforms_mailcheck_enabled', '__return_false');

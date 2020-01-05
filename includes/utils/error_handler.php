@@ -29,24 +29,24 @@ function errorHandler($errno, $errstr, $errfile, $errline)
         case E_ERROR:
         case E_USER_ERROR:   
             $error_code = intl_error_name($errno);
-            $e = new Exception("[ERROR][$error_code] $errstr");
+            $e = new Exception("[ERROR][$error_code] $errstr - $errfile:$errline");
             throw $e;
 
         case E_WARNING:
         case E_USER_WARNING:
             $error_code = intl_error_name($errno);
-            sentryClient()->captureMessage("[WARNING][$error_code] $errst");
+            sentryClient()->captureMessage("[WARNING][$error_code] $errst - $errfile:$errline");
             break;
 
         case E_NOTICE:
         case E_USER_NOTICE:
             $error_code = intl_error_name($errno);
-            sentryClient()->captureMessage("[NOTICE][$error_code] $errst");
+            sentryClient()->captureMessage("[NOTICE][$error_code] $errst - $errfile:$errline");
             break;
 
         default:
             $error_code = intl_error_name($errno);
-            sentryClient()->captureMessage("[UNKNOWN][$error_code] $errst");
+            sentryClient()->captureMessage("[UNKNOWN][$error_code] $errst - $errfile:$errline");
             break;
     }
 
