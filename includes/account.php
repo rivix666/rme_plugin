@@ -48,7 +48,7 @@ function subscriptionsEndpointContent()
 {
     $user = wp_get_current_user();
     if (!$user) {
-        throw new ErrorException(sprintf("[%s::%s] User is null", __CLASS__, __FUNCTION__));
+        throw new RmeException(sprintf("[%s::%s] User is null", __CLASS__, __FUNCTION__));
     }
 
     $factory = new SubsPageFactory();

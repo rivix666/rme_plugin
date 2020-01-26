@@ -25,7 +25,7 @@ if (basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) == SUBS_ENDPOINT)
 			}
 			else
 			{
-				throw new Exception(sprintf("[%s::%s] Can not clear output buffer before file download", __CLASS__, __FUNCTION__));
+				throw new RmeException(sprintf("[%s::%s] Can not clear output buffer before file download", __CLASS__, __FUNCTION__));
 				// TODO show any message to user that there is a problem with download
 			}
 
