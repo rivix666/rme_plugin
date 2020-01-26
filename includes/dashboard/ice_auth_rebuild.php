@@ -70,19 +70,21 @@ function showSubsDataOnPage()
             padding: 5px;
         }
     </style>
-    <div class="subs_info">
-        <p>
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>User</th>
-                <th>Url</th>
-                <th>ExpDate</th>
-                <th>Licenses</th>
-                <th>SOD_Id</th>
-                <th>Order_Id</th>
-                <th>Product_Id</th>
-            </tr>
+    <form method="post">
+        <div class="subs_info">
+            <p>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>User</th>
+                    <th>Url</th>
+                    <th>ExpDate</th>
+                    <th>Licenses</th>
+                    <th>SOD_Id</th>
+                    <th>Order_Id</th>
+                    <th>Product_Id</th>
+                </tr>
     <?php
 
     $subs = ap_S::query()
@@ -92,6 +94,7 @@ function showSubsDataOnPage()
     {
         // Subs array
         echo "<tr>";
+        echo "<td><input type='checkbox' name='chbox_".$s->id."'></td>";
         echo "<td><b>".$s->id."</b></td>";
         echo "<td>".$s->user_id."</td>";
         echo "<td>".$s->url."</td>";
@@ -121,8 +124,11 @@ function showSubsDataOnPage()
     }
 
     ?>
-        </table>
-        </p>
-    </div>
+            </table>
+            </p>
+        </div>
+        <input type="submit" name="register_selected" value="Register selected">
+        <input type="submit" name="unregister_selected" value="Unregister selected">
+    </form>
     <?php
 }

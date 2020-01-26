@@ -20,10 +20,23 @@ add_action('admin_menu', 'rmeSetupMenu');
 function showPage()
 {
     // Requests handle
-    if (isset($_REQUEST['rebuild_pyr_db'])) 
+    if (isset($_REQUEST['rebuild_pyr_db'])) {        
         rebuildPyrDbRequested();
-    if (isset($_REQUEST['show_db'])) 
+    }
+
+    if (isset($_REQUEST['show_db'])) {
         showSubsDataOnPage();
+    }
+
+    if (isset($_REQUEST['register_selected'])) {
+        // TODO finish this
+        showSubsDataOnPage();
+    }
+
+    if (isset($_REQUEST['unregister_selected'])) {
+        // TODO finish this
+        showSubsDataOnPage();
+    }
 
     // Page show
     ?>
