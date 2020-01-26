@@ -56,3 +56,11 @@ add_action('template_redirect', 'redirect_shop');
 // Disable email suggestion on Email form field (WPForms)
 //---------------------------------------------------------------------------------------------------
 add_filter('wpforms_mailcheck_enabled', '__return_false');
+
+// Change invoice button text
+//---------------------------------------------------------------------------------------------------
+function downloadInvoiceButtonText($button_text) {
+    return 'Faktura i Umowa (PDF)';
+}
+
+add_filter('wpo_wcpdf_myaccount_button_text', 'downloadInvoiceButtonText', 10, 1);
