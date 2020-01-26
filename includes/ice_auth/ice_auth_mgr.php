@@ -102,7 +102,7 @@ class IceAuthOrderMgr
     }
 
     //---------------------------------------------------------------------------------------------------
-    protected function registerSubscriptionInIceAuth($sub)
+    public function registerSubscriptionInIceAuth($sub)
     {
         // Send POST to ice_auth to create user
         $url = $this::SUB_REGISTER_URL;
@@ -121,10 +121,12 @@ class IceAuthOrderMgr
         if ($httpcode != 200) {
             throw new Exception(sprintf("[%s::%s] Cannot register listener in ice_auth. Response code: $httpcode", __CLASS__, __FUNCTION__));
         }
+
+        return $httpcode;
     }
 
     //---------------------------------------------------------------------------------------------------
-    protected function unregisterSubscriptionFromIceAuth($sub)
+    public function unregisterSubscriptionFromIceAuth($sub)
     {
         // Send POST to ice_auth to remove user
         $url = $this::SUB_UNREGISTER_URL;
@@ -142,6 +144,8 @@ class IceAuthOrderMgr
         if ($httpcode != 200) {
             throw new Exception(sprintf("[%s::%s] Cannot unregister listener in ice_auth. Response code: $httpcode", __CLASS__, __FUNCTION__));
         }
+
+        return $httpcode;
     }
 
     //---------------------------------------------------------------------------------------------------

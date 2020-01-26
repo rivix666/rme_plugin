@@ -29,6 +29,7 @@ include_once "includes/account.php";
 include_once "includes/radio.php";
 include_once "includes/ganalytics.php";
 include_once "includes/utils/db_utils.php";
+include_once "includes/dashboard/admin_page.php";
 
 // Create db tables if needed, during plugin activation
 //---------------------------------------------------------------------------------------------------
