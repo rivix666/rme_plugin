@@ -27,10 +27,9 @@ function rebuildPyrDbRequested()
         ->where('id', $data->sub_id)
         ->find();
 
-        $ice_mgr = new IceAuthOrderMgr($data->order_id);
         foreach ($subs as $s)
         {
-            $http_code = $ice_mgr->registerSubscriptionInIceAuth($s);
+            $http_code = IceAuthOrderMgr::registerSubscriptionInIceAuth($s);
             if ($http_code == 200)
             {
                 $registered .= $s->id . ", ";

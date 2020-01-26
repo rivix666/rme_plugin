@@ -102,10 +102,10 @@ class IceAuthOrderMgr
     }
 
     //---------------------------------------------------------------------------------------------------
-    public function registerSubscriptionInIceAuth($sub)
+    public static function registerSubscriptionInIceAuth($sub)
     {
         // Send POST to ice_auth to create user
-        $url = $this::SUB_REGISTER_URL;
+        $url = IceAuthOrderMgr::SUB_REGISTER_URL;
         $myvars = 'uuid=' . $sub->url . '&exp_date=' . $sub->exp_date . '&licences_num=' . $sub->licenses_num;
 
         $ch = curl_init($url);
@@ -128,10 +128,10 @@ class IceAuthOrderMgr
     }
 
     //---------------------------------------------------------------------------------------------------
-    public function unregisterSubscriptionFromIceAuth($sub)
+    public static function unregisterSubscriptionFromIceAuth($sub)
     {
         // Send POST to ice_auth to remove user
-        $url = $this::SUB_UNREGISTER_URL;
+        $url = IceAuthOrderMgr::SUB_UNREGISTER_URL;
         $myvars = 'uuid=' . $sub->url;
 
         $ch = curl_init($url);
