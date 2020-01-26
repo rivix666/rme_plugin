@@ -22,12 +22,16 @@ function showPage()
     // Requests handle
     if (isset($_REQUEST['rebuild_pyr_db'])) 
         rebuildPyrDbRequested();
+    if (isset($_REQUEST['show_db'])) 
+        showSubsDataOnPage();
 
     // Page show
     ?>
         <form method="post">
             <h2>Rebuild pyramid db: </h2>
             <input type="submit" name="rebuild_pyr_db" value="Rebuild DB">
+            <h2>Show Subs Db Data: </h2>
+            <input type="submit" name="show_db" value="Show DB">
         </form>
     <?php
 
