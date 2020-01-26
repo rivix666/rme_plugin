@@ -41,10 +41,11 @@ function showPage()
     // Page show
     ?>
         <form method="post">
-            <h2>Rebuild pyramid db: </h2>
-            <input type="submit" name="rebuild_pyr_db" value="Rebuild DB">
             <h2>Show Subs Db Data: </h2>
             <input type="submit" name="show_db" value="Show DB">
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+            <h2 style="color: red;">Rebuild pyramid db: </h2>
+            <input type="submit" name="rebuild_pyr_db" value="Rebuild DB" style="background-color: red; color: white;">
         </form>
     <?php
 
