@@ -118,7 +118,9 @@ class IceAuthOrderMgr
         $response = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if ($httpcode != 200) {
+        // 200 - means that everything is ok
+        // 234 - means that user was registered before (and skipped now)
+        if ($httpcode != 200 && $httpcode !=  234) {
             throw new Exception(sprintf("[%s::%s] Cannot register listener in ice_auth. Response code: $httpcode", __CLASS__, __FUNCTION__));
         }
 
@@ -141,7 +143,9 @@ class IceAuthOrderMgr
         $response = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if ($httpcode != 200) {
+        // 200 - means that everything is ok
+        // 234 - means that user was registered before (and skipped now)
+        if ($httpcode != 200 && $httpcode !=  234) {
             throw new Exception(sprintf("[%s::%s] Cannot unregister listener in ice_auth. Response code: $httpcode", __CLASS__, __FUNCTION__));
         }
 
