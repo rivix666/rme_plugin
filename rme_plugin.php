@@ -64,3 +64,10 @@ function downloadInvoiceButtonText($button_text) {
 }
 
 add_filter('wpo_wcpdf_myaccount_button_text', 'downloadInvoiceButtonText', 10, 1);
+
+// Disable those fuc%$^# annoyuing notices
+//---------------------------------------------------------------------------------------------------
+add_filter('woocommerce_notice_types', '__return_null'); // Disable all notices
+
+ // Disable that fu%#$^& annoying message that item was removed from cart and do you weant to undo that operation
+//add_filter('woocommerce_cart_item_removed_notice_type', '__return_null');
