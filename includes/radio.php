@@ -22,12 +22,8 @@ function rme_showRadioPlayer($atts) {
 
     // Prepare radio html code
     $radio_html = 
-        '<div class="player">
-            <img src="'.$cover_img.'" class="album-art"/>
+        '<div class="player">          
             <div class="meta-container">
-              <div class="song-title">'.$title.'</div>
-              <div class="song-artist">'.$description.'</div>
-
               <div class="time-container">
                 <div class="current-time">
                   <span class="amplitude-current-minutes" data-amplitude-song-index="0"></span>:<span class="amplitude-current-seconds" data-amplitude-song-index="0"></span>
