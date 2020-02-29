@@ -24,21 +24,25 @@ function rme_showRadioPlayer($atts) {
     $radio_html = 
         '<div class="player">          
             <div class="meta-container">
-              <div class="time-container">
-                <div class="current-time">
-                  <span class="amplitude-current-minutes" data-amplitude-song-index="0"></span>:<span class="amplitude-current-seconds" data-amplitude-song-index="0"></span>
-                </div>
 
-                <div class="duration">
-                  <span class="amplitude-duration-minutes" data-amplitude-song-index="0">3</span>:<span class="amplitude-duration-seconds" data-amplitude-song-index="0">30</span>
-                </div>
-              </div>
-              <progress class="amplitude-song-played-progress" data-amplitude-song-index="0" id="song-played-progress-1"></progress>
               <div class="control-container">
-                <div class="amplitude-play-pause" data-amplitude-song-index="0">
-
-                </div>
+                <div class="amplitude-play-pause" data-amplitude-song-index="0"></div>
               </div>
+
+              <div class="progress-container">
+                <div class="time-container">
+                  <div class="current-time">
+                    <span class="amplitude-current-minutes" data-amplitude-song-index="0"></span>:<span class="amplitude-current-seconds" data-amplitude-song-index="0"></span>
+                  </div>
+
+                  <div class="duration">
+                    <span class="amplitude-duration-minutes" data-amplitude-song-index="0">3</span>:<span class="amplitude-duration-seconds" data-amplitude-song-index="0">30</span>
+                  </div>
+                </div>
+
+                <progress class="amplitude-song-played-progress" data-amplitude-song-index="0" id="song-played-progress-1"></progress>
+              </div>
+
             </div>
          </div>
          <div id="preload">
