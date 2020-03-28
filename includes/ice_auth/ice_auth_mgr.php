@@ -121,7 +121,8 @@ class IceAuthOrderMgr
         // 200 - means that everything is ok
         // 234 - means that user was registered before (and skipped now)
         if ($httpcode != 200 && $httpcode !=  234) {
-            throw new RmeException(sprintf("[%s::%s] Cannot register listener in ice_auth. Response code: $httpcode", __CLASS__, __FUNCTION__));
+            $error_msg = pcurl_error($ch);
+            throw new RmeException(sprintf("[%s::%s] Cannot register listener in ice_auth. Response code: $httpcode. Error-Msg: $error_msg", __CLASS__, __FUNCTION__));
         }
 
         return $httpcode;
@@ -146,7 +147,8 @@ class IceAuthOrderMgr
         // 200 - means that everything is ok
         // 234 - means that user was registered before (and skipped now)
         if ($httpcode != 200 && $httpcode !=  234) {
-            throw new RmeException(sprintf("[%s::%s] Cannot unregister listener in ice_auth. Response code: $httpcode", __CLASS__, __FUNCTION__));
+            $error_msg = pcurl_error($ch);
+            throw new RmeException(sprintf("[%s::%s] Cannot unregister listener in ice_auth. Response code: $httpcode. Error-Msg: $error_msg", __CLASS__, __FUNCTION__));
         }
 
         return $httpcode;

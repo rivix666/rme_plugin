@@ -4,7 +4,7 @@ Amplitude.init({
       //"name": "Offcut #6",
       //"artist": "Little People",
       //"album": "We Are But Hunks of Wood Remixes",
-      "url": "https://radiomaxelektro.pl/wp-content/uploads/MAX-Demo-One.mp3",
+      "url": "https://radiomaxelektro.pl/wp-content/uploads/music-clip.mp3",
       //"cover_art_url": "../album-art/we-are-but-hunks-of-wood.jpg"
     }
   ]
