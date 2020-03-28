@@ -7,7 +7,7 @@ define("ICECAST_URL", "https://stream.radiomaxelektro.pl:8080/rme_stream?uuid=")
 define("SUBS_ENDPOINT", "subscriptions"); // After change remember to update account.css and hooks names
 
 // Date timezone
-// TODO check if we really don;t need to set this
+// TODO check if we really don't need to set this
 //date_default_timezone_set('Europe/Warsaw');
 
 // Debug logs
@@ -29,6 +29,14 @@ function isDateExpired($date)
     $today = date("Y-m-d");
     return $today > $date;
 }
+
+// Function to check if string starts with given substring 
+//---------------------------------------------------------------------------------------------------
+function startsWith($string, $start_string) 
+{ 
+    $len = strlen($start_string); 
+    return (substr($string, 0, $len) === $start_string); 
+} 
 
 // It's awesome but some pages may block it...
 // $data - data that should be in downloaded file

@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__ . "/ice_auth_rebuild.php";
+include_once __DIR__ . "/../utils/global.php";
 
 function rmeSetupMenu()
 {
@@ -29,13 +30,23 @@ function showPage()
     }
 
     if (isset($_REQUEST['register_selected'])) {
-        // TODO finish this
-        showSubsDataOnPage();
+        $ids = array();
+        foreach ($_POST as $key => $value) {
+            if (startsWith($key, CHBOX_PREFIX)) {
+                array_push($ids, (int)$value);
+            }
+        }
+        registerListeners($ids);
     }
 
     if (isset($_REQUEST['unregister_selected'])) {
-        // TODO finish this
-        showSubsDataOnPage();
+        $ids = array();
+        foreach ($_POST as $key => $value) {
+            if (startsWith($key, CHBOX_PREFIX)) {
+                array_push($ids, (int)$value);
+            }
+        }
+        unregisterListeners($ids);
     }
 
     // Page show

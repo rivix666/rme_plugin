@@ -1,10 +1,14 @@
 <?php
 
+// I know there is a lot of copied code but... I just don't care...
+
 include_once __DIR__ . "/../ice_auth/ice_auth_mgr.php";
 include_once __DIR__ . "/../models/models.php";
 
 use models\Subs as ap_S;
 use models\SubsOrderData as ap_SOD;
+
+define("CHBOX_PREFIX", "chbox_");
 
 //---------------------------------------------------------------------------------------------------
 function rebuildPyrDbRequested()
@@ -54,6 +58,96 @@ function rebuildPyrDbRequested()
 }
 
 //---------------------------------------------------------------------------------------------------
+function registerListeners($ids)
+{
+    if (empty($ids))
+        return;
+
+    $errors = "";
+    $skipped = "";
+    $registered = "";
+    $errors_count = 0;
+    $skipped_count = 0;
+    $registered_count = 0;
+
+    foreach ($ids as $i)
+    {        
+        $subs = ap_S::query()
+        ->where('id', $i)
+        ->find();
+
+        foreach ($subs as $s)
+        {
+            $http_code = IceAuthOrderMgr::registerSubscriptionInIceAuth($s);
+            if ($http_code == 200)
+            {
+                $registered .= $s->id . ", ";
+                $registered_count++;
+            }
+            else if ($http_code == 234)
+            {
+                $skipped .= $s->id . ", ";
+                $skipped_count++;   
+            }
+            else
+            {
+                $errors .= $s->id . ", ";
+                $errors_count++;
+            }
+        }
+    }
+
+    echo "<p><h2>Registered: " . $registered_count . "</h2><br>Sub Ids: " . $registered . "</p>";
+    echo "<p><h2>Skipped: "    . $skipped_count    . "</h2><br>Sub Ids: " . $skipped    . "</p>";
+    echo "<p><h2>Errors: "     . $errors_count     . "</h2><br>Sub Ids: " . $errors     . "</p><br>";
+}
+
+//---------------------------------------------------------------------------------------------------
+function unregisterListeners($ids)
+{
+    if (empty($ids))
+        return;
+
+    $errors = "";
+    $skipped = "";
+    $registered = "";
+    $errors_count = 0;
+    $skipped_count = 0;
+    $registered_count = 0;
+
+    foreach ($ids as $i)
+    {        
+        $subs = ap_S::query()
+        ->where('id', $i)
+        ->find();
+
+        foreach ($subs as $s)
+        {
+            $http_code = IceAuthOrderMgr::unregisterSubscriptionFromIceAuth($s);
+            if ($http_code == 200)
+            {
+                $registered .= $s->id . ", ";
+                $registered_count++;
+            }
+            else if ($http_code == 234)
+            {
+                $skipped .= $s->id . ", ";
+                $skipped_count++;   
+            }
+            else
+            {
+                $errors .= $s->id . ", ";
+                $errors_count++;
+            }
+        }
+    }
+
+    echo "<p><h2>Unregistered: " . $registered_count . "</h2><br>Sub Ids: " . $registered . "</p>";
+    echo "<p><h2>Skipped: "      . $skipped_count    . "</h2><br>Sub Ids: " . $skipped    . "</p>";
+    echo "<p><h2>Errors: "       . $errors_count     . "</h2><br>Sub Ids: " . $errors     . "</p><br>";
+}
+
+//---------------------------------------------------------------------------------------------------
 function showSubsDataOnPage()
 {
     ?>
@@ -94,7 +188,7 @@ function showSubsDataOnPage()
     {
         // Subs array
         echo "<tr>";
-        echo "<td><input type='checkbox' name='chbox_".$s->id."'></td>";
+        echo "<td><input type='checkbox' name='". CHBOX_PREFIX ."$s->id' value='$s->id'></td>";
         echo "<td><b>".$s->id."</b></td>";
         echo "<td>".$s->user_id."</td>";
         echo "<td>".$s->url."</td>";
